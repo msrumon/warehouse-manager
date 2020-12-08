@@ -1,3 +1,5 @@
+<?php $isThisHome = false ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,9 +14,9 @@ if (!empty($user)) {
     return header('Location: /index.php');
 }
 
-$flash = $_SESSION['flash'];
-$input = $_SESSION['input'];
-$error = $_SESSION['error'];
+$flash = $_SESSION['flash'] ?? null;
+$input = $_SESSION['input'] ?? null;
+$error = $_SESSION['error'] ?? null;
 
 unset($_SESSION['flash']);
 unset($_SESSION['input']);
@@ -39,7 +41,7 @@ unset($_SESSION['error']);
                     <select id="userRole" class="form-control<?= isset($error['role']) ? ' is-invalid' : '' ?>" name="role">
                         <option disabled selected>Choose One</option>
                         <?php foreach (['admin', 'manager'] as $v) : ?>
-                            <option value="<?= $v ?>" <?php if ($input['role'] === $v) : ?>selected<?php endif ?>>
+                            <option value="<?= $v ?>" <?php if (isset($input['role']) && $input['role'] === $v) : ?>selected<?php endif ?>>
                                 <?= ucfirst($v) ?>
                             </option>
                         <?php endforeach ?>
@@ -52,7 +54,7 @@ unset($_SESSION['error']);
                 </div>
                 <div class="form-group">
                     <label for="emailAddress">Email Address</label>
-                    <input type="email" class="form-control<?= isset($error['email']) ? ' is-invalid' : '' ?>" id="emailAddress" name="email" value="<?= $input['email'] ?>">
+                    <input type="email" class="form-control<?= isset($error['email']) ? ' is-invalid' : '' ?>" id="emailAddress" name="email" value="<?= $input['email'] ?? null ?>">
                     <?php if (isset($error['email'])) : ?>
                         <span class="invalid-feedback">
                             <?= $error['email'] ?>

@@ -1,3 +1,5 @@
+<?php $isThisHome = false ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,8 +21,8 @@ if ($user->role !== 'admin') {
     return header('Location: /login.php');
 }
 
-$input = $_SESSION['input'];
-$error = $_SESSION['error'];
+$input = $_SESSION['input'] ?? null;
+$error = $_SESSION['error'] ?? null;
 
 unset($_SESSION['input']);
 unset($_SESSION['error']);
@@ -36,7 +38,7 @@ unset($_SESSION['error']);
                 <h3 class="mb-3">Add New Supplier</h3>
                 <div class="form-group">
                     <label for="supplierName">Name</label>
-                    <input type="text" class="form-control<?= isset($error['name']) ? ' is-invalid' : '' ?>" id="supplierName" name="name" value="<?= $input['name'] ?>">
+                    <input type="text" class="form-control<?= isset($error['name']) ? ' is-invalid' : '' ?>" id="supplierName" name="name" value="<?= $input['name'] ?? null ?>">
                     <?php if (isset($error['name'])) : ?>
                         <span class="invalid-feedback">
                             <?= $error['name'] ?>
@@ -46,7 +48,7 @@ unset($_SESSION['error']);
                 <div class="form-group">
                     <label for="supplierAddress">Address</label>
                     <!-- Needs to keep it in one long line -->
-                    <textarea class="form-control<?= isset($error['address']) ? ' is-invalid' : '' ?>" id="supplierAddress" rows="3" name="address"><?= $input['address'] ?></textarea>
+                    <textarea class="form-control<?= isset($error['address']) ? ' is-invalid' : '' ?>" id="supplierAddress" rows="3" name="address"><?= $input['address'] ?? null ?></textarea>
                     <?php if (isset($error['address'])) : ?>
                         <span class="invalid-feedback">
                             <?= $error['address'] ?>

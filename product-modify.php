@@ -1,3 +1,5 @@
+<?php $isThisHome = false ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,8 +36,8 @@ $product = $stmt->fetch();
 $stmt = $conn->query('SELECT * FROM `suppliers`');
 $suppliers = $stmt->fetchAll();
 
-$input = $_SESSION['input'];
-$error = $_SESSION['error'];
+$input = $_SESSION['input'] ?? null;
+$error = $_SESSION['error'] ?? null;
 
 unset($_SESSION['input']);
 unset($_SESSION['error']);
@@ -67,7 +69,7 @@ unset($_SESSION['error']);
                 </div>
                 <div class="form-group">
                     <label for="productTitle">Title</label>
-                    <input type="text" class="form-control<?= isset($error['title']) ? ' is-invalid' : '' ?>" id="productTitle" name="title" value="<?= $input['title'] ?? $product->title ?>">
+                    <input type="text" class="form-control<?= isset($error['title']) ? ' is-invalid' : '' ?>" id="productTitle" name="title" value="<?= $input['title'] ?? $product->title ?? null ?>">
                     <?php if (isset($error['title'])) : ?>
                         <span class="invalid-feedback">
                             <?= $error['title'] ?>
@@ -77,7 +79,7 @@ unset($_SESSION['error']);
                 <div class="form-group">
                     <label for="productDescription">Description</label>
                     <!-- Needs to keep it in one long line -->
-                    <textarea class="form-control<?= isset($error['description']) ? ' is-invalid' : '' ?>" id="productDescription" rows="3" name="description"><?= $input['description'] ?? $product->description ?></textarea>
+                    <textarea class="form-control<?= isset($error['description']) ? ' is-invalid' : '' ?>" id="productDescription" rows="3" name="description"><?= $input['description'] ?? $product->description ?? null ?></textarea>
                     <?php if (isset($error['description'])) : ?>
                         <span class="invalid-feedback">
                             <?= $error['description'] ?>
@@ -86,7 +88,7 @@ unset($_SESSION['error']);
                 </div>
                 <div class="form-group">
                     <label for="productPrice">Price</label>
-                    <input type="number" class="form-control<?= isset($error['price']) ? ' is-invalid' : '' ?>" id="productPrice" name="price" value="<?= $input['price'] ?? $product->price ?>">
+                    <input type="number" class="form-control<?= isset($error['price']) ? ' is-invalid' : '' ?>" id="productPrice" name="price" value="<?= $input['price'] ?? $product->price ?? null ?>">
                     <?php if (isset($error['price'])) : ?>
                         <span class="invalid-feedback">
                             <?= $error['price'] ?>

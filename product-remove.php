@@ -1,3 +1,5 @@
+<?php $isThisHome = false ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

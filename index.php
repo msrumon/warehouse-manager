@@ -11,7 +11,7 @@
 <?php
 
 if (!empty($user)) {
-    $flash = $_SESSION['flash'];
+    $flash = $_SESSION['flash'] ?? null;
     unset($_SESSION['flash']);
 
     switch ($user->role) {

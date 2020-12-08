@@ -1,3 +1,5 @@
+<?php $isThisHome = false ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,8 +21,8 @@ if ($user->role !== 'manager') {
     return header('Location: /login.php');
 }
 
-$input = $_SESSION['input'];
-$error = $_SESSION['error'];
+$input = $_SESSION['input'] ?? null;
+$error = $_SESSION['error'] ?? null;
 
 unset($_SESSION['input']);
 unset($_SESSION['error']);
@@ -44,7 +46,7 @@ $suppliers = $stmt->fetchAll();
                     <select id="supplier" class="form-control<?= isset($error['supplier']) ? ' is-invalid' : '' ?>" name="supplier">
                         <option disabled selected>Choose One</option>
                         <?php foreach ($suppliers as $supplier) : ?>
-                            <option value="<?= $supplier->id ?>" <?php if ($input['supplier'] === $supplier->id) : ?>selected<?php endif ?>>
+                            <option value="<?= $supplier->id ?>" <?php if (isset($input['supplier']) && $input['supplier'] === $supplier->id) : ?>selected<?php endif ?>>
                                 <?= ucwords($supplier->name) ?>
                             </option>
                         <?php endforeach ?>
@@ -57,7 +59,7 @@ $suppliers = $stmt->fetchAll();
                 </div>
                 <div class="form-group">
                     <label for="productTitle">Title</label>
-                    <input type="text" class="form-control<?= isset($error['title']) ? ' is-invalid' : '' ?>" id="productTitle" name="title" value="<?= $input['title'] ?>">
+                    <input type="text" class="form-control<?= isset($error['title']) ? ' is-invalid' : '' ?>" id="productTitle" name="title" value="<?= $input['title'] ?? null ?>">
                     <?php if (isset($error['title'])) : ?>
                         <span class="invalid-feedback">
                             <?= $error['title'] ?>
@@ -67,7 +69,7 @@ $suppliers = $stmt->fetchAll();
                 <div class="form-group">
                     <label for="productDescription">Description</label>
                     <!-- Needs to keep it in one long line -->
-                    <textarea class="form-control<?= isset($error['description']) ? ' is-invalid' : '' ?>" id="productDescription" rows="3" name="description"><?= $input['description'] ?></textarea>
+                    <textarea class="form-control<?= isset($error['description']) ? ' is-invalid' : '' ?>" id="productDescription" rows="3" name="description"><?= $input['description'] ?? null ?></textarea>
                     <?php if (isset($error['description'])) : ?>
                         <span class="invalid-feedback">
                             <?= $error['description'] ?>
@@ -76,7 +78,7 @@ $suppliers = $stmt->fetchAll();
                 </div>
                 <div class="form-group">
                     <label for="productPrice">Price</label>
-                    <input type="number" class="form-control<?= isset($error['price']) ? ' is-invalid' : '' ?>" id="productPrice" name="price" value="<?= $input['price'] ?>">
+                    <input type="number" class="form-control<?= isset($error['price']) ? ' is-invalid' : '' ?>" id="productPrice" name="price" value="<?= $input['price'] ?? null ?>">
                     <?php if (isset($error['price'])) : ?>
                         <span class="invalid-feedback">
                             <?= $error['price'] ?>
