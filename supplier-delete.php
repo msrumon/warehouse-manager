@@ -58,7 +58,13 @@ $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 // Deleting current supplier
 $stmt = $conn->prepare('DELETE FROM `suppliers` WHERE `id` = :id');
 $stmt->bindParam(':id', $id);
-$stmt->execute();
+try {
+    $stmt->execute();
+}
+catch (Exception $e) {
+	$_SESSION['flash']['danger'] = 'Foreign Key Constraint Exception!';
+    return header('Location: ./index.php');
+}
 
 // Redirecting to home page to display confirmation of supplier removal
 $_SESSION['flash']['success'] = 'Supplier deleted successfully!';
