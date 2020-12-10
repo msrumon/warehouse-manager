@@ -60,9 +60,8 @@ $stmt = $conn->prepare('DELETE FROM `suppliers` WHERE `id` = :id');
 $stmt->bindParam(':id', $id);
 try {
     $stmt->execute();
-}
-catch (Exception $e) {
-	$_SESSION['flash']['danger'] = 'Foreign Key Constraint Exception!';
+} catch (Exception $e) {
+    $_SESSION['flash']['danger'] = 'Supplier cannot be deleted! One or more products are bound with it.';
     return header('Location: /index.php');
 }
 
