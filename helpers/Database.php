@@ -53,6 +53,7 @@ class Database
      */
     public function getConnection()
     {
+        $this->connection->exec('PRAGMA foreign_keys = ON');
         return $this->connection;
     }
 
