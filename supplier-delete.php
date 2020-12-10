@@ -63,7 +63,7 @@ try {
 }
 catch (Exception $e) {
 	$_SESSION['flash']['danger'] = 'Foreign Key Constraint Exception!';
-    return header('Location: ./index.php');
+    return header('Location: /index.php');
 }
 
 // Redirecting to home page to display confirmation of supplier removal
